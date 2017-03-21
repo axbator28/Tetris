@@ -5,18 +5,10 @@
  */
 package tetrismvc;
 
-import com.sun.javafx.collections.MappingChange.Map;
-import java.util.HashMap;
-
-/**
- *
- * @author Héléna
- */
 public class Carte {
     HashMap<Coordonnee, Case> map;
-    
-    
-    
+
+
     public Case getCase(Coordonnee k){
         Case c = null;
         if(map.containsKey(k)){
@@ -37,6 +29,4 @@ public class Carte {
             System.out.println("Erreur : la case n'existe pas");
         }
     }
-
-    
 }
