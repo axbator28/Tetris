@@ -99,6 +99,8 @@ public class TetrisMVC extends Application {
         Grille g = new Grille(20,8);
         Coordonnee bas = new Coordonnee(1,16);
         Piece p2 = new Piece(bas);
+        Forme L = New 
+        p2.donneForme(Forme.L);
         g.posepiece(p2);
         for (int i =0; i<20;i++){
             p2.rotation();

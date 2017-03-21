@@ -10,22 +10,44 @@ package tetrismvc;
  * @author Axel
  */
 public class Piece {
+    
+    enum Forme {
+    Z, 
+    S, 
+    ligne, 
+    t, 
+    carre, L, Linverse };
+    
+    private Forme forme;
     private Coordonnee centre;
     private String couleur;
     private Coordonnee[] cases; //contient les coordonnées des cases de la pièce relativement 
     //au centre de gravité, avec le centre de gravité en 0,0 donc
     
     public Piece(Coordonnee coord){
-        Coordonnee a = new Coordonnee(-1,0);
-        Coordonnee b = new Coordonnee(0,1);
-        Coordonnee c = new Coordonnee(1,1);
-        centre = coord;
+
         cases = new Coordonnee[3];
-        cases[0] = a;
-        cases[1] = b;
-        cases[2] = c;
+
+        centre = coord;
+
     }
     
+    public void donneForme(Forme F){
+        int [][][] listeFormes = {
+            {{-1,1}, {1,0}, {0,1}},
+            {{-1,0}, {1,0}, {1,1}},
+            {{0,-1}, {0,1}, {0,2}},
+            {{-1,0}, {1,0}, {1,0}},
+            {{0,1}, {1,0}, {1,1}},
+            {{1,0}, {2,0}, {1,0}},
+            {{-1,0}, {1,0}, {2,0}}};
+        
+        for (int i = 0; i < 3 ; i++) {
+            cases[i] = new Coordonnee(listeFormes[F.ordinal()][i][0],
+                    listeFormes[F.ordinal()][i][1]);
+        }
+        forme = F;
+    }
     public void rotation(){
         int a, b;
         for (Coordonnee case1 : cases) {

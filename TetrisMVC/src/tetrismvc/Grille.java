@@ -13,6 +13,7 @@ public class Grille {
     private int largeur;
     private int hauteur;
     private int[][] tableau;
+    private Case[][] tabCases; //ajouter les modifications sur cette marice
     private Piece piececourante;
     
     public Grille(int h, int l){
