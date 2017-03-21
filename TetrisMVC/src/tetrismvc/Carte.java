@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.blokus;
+package tetrismvc;
 
 import com.sun.javafx.collections.MappingChange.Map;
 import java.util.HashMap;
@@ -13,39 +13,30 @@ import java.util.HashMap;
  * @author Héléna
  */
 public class Carte {
-    HashMap<Integer, Case> map;
+    HashMap<Coordonnee, Case> map;
     
     
     
-    public Case getCase(Integer k1, Integer k2){
+    public Case getCase(Coordonnee k){
         Case c = null;
-        if(map.contains(k1)){
-            Map<Integer, Case> m=map.get(k1);
-            if(m.contains(k2)){
-                c=m.get(k2);
-            }
-            else{
-                System.out.println("Erreur : la colonne sur la ligne considérée n'existe pas");
-            }
+        if(map.containsKey(k)){
+            c=map.get(k);
         }
         else{
-            System.out.println("Erreur : la ligne n'existe pas");
+            System.out.println("Erreur : la case n'existe pas");
         }
         return c;
     }
     
-    public void setCase(Integer k1, Integer k2, Case c){
-        if(map.containsKey(k1)){
-            if(map.contains(k2)){
-                Map<Integer, Case> m=map.get(k1);
-                m.remove(k2);
-                m.put(k2, c);
-            }
-            else{
-                System.out.println("Erreur : la colonne n'existe pas sur cette ligne");
-            }
+    public void setCase(Coordonnee k, Case c){
+        if(map.containsKey(k)){
+            map.remove(k);
+            map.put(k, c);
         }
-        else{System.out.println("Erreur : la ligne n'existe pas");}
+        else{
+            System.out.println("Erreur : la case n'existe pas");
+        }
     }
+
     
 }
