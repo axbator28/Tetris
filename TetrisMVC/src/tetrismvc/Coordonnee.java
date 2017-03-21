@@ -32,4 +32,9 @@ public class Coordonnee {
     public int getY(){
         return y;
     }
+    
+    public void add(Coordonnee c){
+        x+=c.getX();
+        y+=c.getY();
+    }
 }
