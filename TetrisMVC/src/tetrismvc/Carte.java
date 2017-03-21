@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.blokus;
+/*package src.blokus;
 
 import com.sun.javafx.collections.MappingChange.Map;
 import java.util.HashMap;
-
+*/
 /**
  *
  * @author Héléna
  */
-public class Carte {
+/*public class Carte {
     HashMap<Integer, Case> map;
     
     
@@ -49,3 +49,4 @@ public class Carte {
     }
     
 }
+*/

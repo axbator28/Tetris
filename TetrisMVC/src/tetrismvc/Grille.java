@@ -21,6 +21,13 @@ public class Grille {
         tableau = new int[h][l];
     }
     /**
+     * Ajoute la piece en piece courante, et 
+     * @param p 
+     */
+    public void ajoutPieceCourante(Piece p){
+        piececourante = p;
+    }
+    /**
      * La piece n'est pas encore posée. On vérifie si on peu avec ses coordonnées actuelles
      * @param p
      * @return boolean
@@ -46,8 +53,12 @@ public class Grille {
         }
         return rep;
     }
-    
-    public void empreintePiece(Piece p , int t){//laisse dans le tableau l'empreinte de la piece avec la valeur t
+    /**
+     * laisse dans le tableau l'empreinte de la piece avec la valeur t
+     * @param p Piece
+     * @param t Int
+     */
+    public void empreintePiece(Piece p , int t){
         tableau[p.getCentre().getY()][p.getCentre().getX()] = t;
         int a, b;
         for (Coordonnee case1 : p.getCases()) {
@@ -57,13 +68,19 @@ public class Grille {
         }
         
     }
-    
+    /**
+     * Pose la piece p dans la grille, avec des 1
+     * @param p 
+     */
     public void posepiece(Piece p){
         if (placelibre(p)){
             empreintePiece(p,1);
         }
     }
-    
+    /**
+     * Retire la piece p de la grille (remplace la valeur par 0
+     * @param p 
+     */
     public void retirePiece(Piece p){
         empreintePiece(p,0);
     }
@@ -72,17 +89,18 @@ public class Grille {
     *Retire la dernière ligne du tableau, et fait descendre
     *toutes les cases de 1.
     */
-    public void retireLigne(){
-        for (int i =tableau.length-1; i >0; i-- ){
-            for (int j=0; j<tableau[0].length - 1; j++){
-                tableau[i][j] = tableau[i-1][j];
+    public void retireLigne(int ligne){
+        if (ligne<=hauteur){
+            for (int i =ligne; i >0; i-- ){
+                for (int j=0; j<largeur; j++){
+                    tableau[i][j] = tableau[i-1][j];
+                }
+            }
+            for (int i =0;i< largeur;i++){
+                tableau[0][i] = 0;
             }
         }
-        for (int i =0;i<=tableau[0].length - 1;i++){
-            tableau[0][i] = 0;
-        }
     }
-    
     
     public void afficheTableau(){
         for (int i = 0; i<hauteur;i++){
