@@ -10,12 +10,21 @@ package tetrismvc;
  * @author Axel
  */
 public class Grille {
+    private int largeur;
+    private int hauteur;
     private int[][] tableau;
+    private Piece piececourante;
     
-    public Grille(){
-        tableau = new int[20][8];
+    public Grille(int h, int l){
+        largeur = l;
+        hauteur = h;
+        tableau = new int[h][l];
     }
-    
+    /**
+     * La piece n'est pas encore posée. On vérifie si on peu avec ses coordonnées actuelles
+     * @param p
+     * @return boolean
+     */
     public boolean placelibre(Piece p){
         boolean rep = true;
         int a = 0;
@@ -76,8 +85,8 @@ public class Grille {
     
     
     public void afficheTableau(){
-        for (int i = 0; i<20;i++){
-            for (int j = 0; j<8;j++){
+        for (int i = 0; i<hauteur;i++){
+            for (int j = 0; j<largeur;j++){
                 System.out.print(tableau[i][j]);
             }
             System.out.println("");

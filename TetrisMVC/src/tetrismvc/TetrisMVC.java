@@ -96,7 +96,7 @@ public class TetrisMVC extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grille g = new Grille();
+        Grille g = new Grille(20,8);
         Coordonnee bas = new Coordonnee(1,16);
         Piece p2 = new Piece(bas);
         g.posepiece(p2);
