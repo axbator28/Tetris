@@ -111,6 +111,65 @@ public class Grille {
             System.out.println("");
         }
     }
+    /** Test de ligne pleine
+     *  Si la ligne est complète, il faudra l'effacer
+     * @param i ligne à tester
+     * @return true si la ligne est pleine, sinon false
+     */
+    public boolean testLigne(int i){
+        int j=0;
+        while(j<largeur && tableau[i][j]==1){
+            j++;
+        }
+        return j==largeur-1;
+        }
     
+    /** Actualise le tetris tel que les lignes pleines soient effacées
+     * 
+     */
+    public void actuTetris(){
+        for(int i=0;i<hauteur;i++){
+            if(testLigne(i)){
+                retireLigne(i);
+            }
+        }
+    }
     
+    /** Test d'un déplacement pour le rushour
+     * On ne peut déplacer une pièce que dans sa longueur et si elle ne se supperpose pas après à une autre
+     * @param p La pièce à déplacer
+     * @param c Les coordonnées correspondant au déplacement à effectuer (vecteur)
+     * @return 
+     */
+    public boolean testDRushHour(Piece p, Coordonnee c){
+        int x=c.getX();
+        int y=c.getY();
+        boolean test;
+        if(x!=0 && y!=0){
+            test=false;
+        }
+        else{
+            Piece pt=p.clone();
+            pt.deplace(c);
+            test=testCollision(pt);
+        }
+        return test;
+    }
+    
+    public boolean testCollision(Coordonnee c){
+        int x=c.getX();
+        int y=c.getY();
+        return tableau[x][y]==0;
+    }
+    
+    public boolean testCollision(Piece p){
+        Coordonnee c = p.getCentre();
+        boolean test=testCollision(c);
+        Coordonnee[] tab = p.getCases();
+        for(int i=0;i<tab.length;i++){
+            tab[i].add(c);
+            test=test && testCollision(tab[i]);
+        }
+        return test;
+    }
 }

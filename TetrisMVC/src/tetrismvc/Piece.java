@@ -48,6 +48,17 @@ public class Piece {
         }
         forme = F;
     }
+    public Piece(Coordonnee coord, String couleur, Coordonnee[] cases){
+        centre=coord;
+        this.couleur=couleur;
+        this.cases=cases;
+    }
+    
+    @Override
+    public Piece clone(){
+        return new Piece(centre, couleur, cases);
+    }
+
     public void rotation(){
         int a, b;
         for (Coordonnee case1 : cases) {
@@ -66,6 +77,9 @@ public class Piece {
         return cases;
     }
     
+    public void deplace(Coordonnee c){
+        centre.add(c);
+    }
     
    /*
     Fonction deplace permet le déplacement suivant la valeur de la direction.
