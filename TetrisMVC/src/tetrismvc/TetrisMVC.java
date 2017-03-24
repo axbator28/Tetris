@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class TetrisMVC extends Application {
     
     Grille grille;
+    Coordonnee coordcliquee;
     
     
     @Override
@@ -36,12 +37,11 @@ public class TetrisMVC extends Application {
                 
         GridPane gPane = new GridPane();
         border.setCenter(gPane);
-        
         int column;
         int row;
         
-        int largeur= 20; //largeur des rectangles
-        int hauteur = 20; //epaisseur des rectangles
+        int largeur= 30; //largeur des rectangles
+        int hauteur = 30; //epaisseur des rectangles
         
         for (row=0; row < 20; row++){
             for (column = 0; column < 8; column++){
@@ -51,6 +51,12 @@ public class TetrisMVC extends Application {
                 rect.setFill(Color.WHITE);
                 GridPane.setRowIndex(rect, row);
                 GridPane.setColumnIndex(rect, column);
+                rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        coordcliquee = new Coordonnee((int)rect.getX(), (int)rect.getY());
+                    }
+                  });
                 gPane.getChildren().addAll(rect);
             }
         }
