@@ -5,11 +5,12 @@
  */
 package tetrismvc;
 
+import java.util.Observable;
 /**
  *
  * @author Axel
  */
-public class Grille {
+public class Grille extends Observable {
     private int largeur;
     private int hauteur;
     private int[][] tableau;
