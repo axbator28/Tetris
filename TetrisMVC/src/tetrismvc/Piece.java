@@ -11,13 +11,6 @@ package tetrismvc;
  */
 public class Piece {
     
-    enum Forme {
-    Z, 
-    S, 
-    ligne, 
-    t, 
-    carre, L, Linverse };
-    
     private Forme forme;
     private Coordonnee centre;
     private String couleur;
@@ -35,16 +28,16 @@ public class Piece {
     public void donneForme(Forme F){
         int [][][] listeFormes = {
             {{-1,1}, {1,0}, {0,1}},
-            {{-1,0}, {1,0}, {1,1}},
+            {{1,1}, {0,1}, {-1,0}},
             {{0,-1}, {0,1}, {0,2}},
-            {{-1,0}, {1,0}, {1,0}},
+            {{-1,0}, {1,0}, {0,-1}},
             {{0,1}, {1,0}, {1,1}},
-            {{1,0}, {2,0}, {1,0}},
-            {{-1,0}, {1,0}, {2,0}}};
+            {{0,1}, {0,2}, {1,0}},
+            {{0,1}, {0,2}, {-1,0}}};
         
         for (int i = 0; i < 3 ; i++) {
             cases[i] = new Coordonnee(listeFormes[F.ordinal()][i][0],
-                    listeFormes[F.ordinal()][i][1]);
+                    -listeFormes[F.ordinal()][i][1]);
         }
         forme = F;
     }
