@@ -173,4 +173,12 @@ public class Grille extends Observable {
         }
         return test;
     }
+    
+    public int getHauteur(){
+        return hauteur;
+    }
+    
+        public int getLargeur(){
+        return largeur;
+    }
 }
