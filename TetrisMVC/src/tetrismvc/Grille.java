@@ -29,6 +29,10 @@ public class Grille {
     public void ajoutPieceCourante(Piece p){
         piececourante = p;
     }
+
+    public Piece getPiececourante() {
+        return piececourante;
+    }
     /**
      * La piece n'est pas encore posée. On vérifie si on peu avec ses coordonnées actuelles
      * @param p
@@ -74,11 +78,14 @@ public class Grille {
      * Pose la piece p dans la grille, avec des 1
      * @param p 
      */
-    public void posepiece(Piece p){
+    public boolean posepiece(Piece p){
+        boolean test = false;
         if (placelibre(p)){
             empreintePiece(p,1);
             tabCases.setPiece(p);
+            test = true;
         }
+        return test;
     }
     /**
      * Retire la piece p de la grille (remplace la valeur par 0

@@ -12,7 +12,12 @@ public class Carte {
     HashMap<Coordonnee, Case> map;
 
     Carte(int h, int l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        map=new HashMap<Coordonnee, Case>();
+        for(int i=0;i<h;i++){
+            for(int j=0;j<l; j++){
+                map.put(new Coordonnee(i,j), new Case(new Coordonnee(i,j)));
+            }
+        }
     }
 
 
