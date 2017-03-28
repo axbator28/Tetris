@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,6 +6,7 @@
  */
 package tetrismvc;
 
+import javafx.scene.shape.Rectangle;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +28,7 @@ import javafx.stage.Stage;
  */
 public class TetrisMVC extends Application {
     
+    Grille grille;
     
     
     @Override
@@ -33,60 +36,32 @@ public class TetrisMVC extends Application {
         BorderPane border = new BorderPane();
                 
         GridPane gPane = new GridPane();
-        
-        int column = 0;
-        int row = 0;
-        
-
-        for (String s : new String[]{" ", " ", " ", " ", " ", " ", " ", "0", "0", "0",
-            " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",}) {
-            final Text t = new Text(s);
-            t.setWrappingWidth(30);
-            t.setFont(Font.font ("Verdana", 20));
-            t.setTextAlignment(TextAlignment.CENTER);
-            
-            gPane.add(t, column++, row);
-            
-            if (column > 10) {
-                column = 0;
-                row++;
-            }  
-            
-            t.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                
-            @Override
-            public void handle(MouseEvent event) {
-                t.setFont(Font.font("Arial",10));
-            }
-                
-            });
-    }
-        
-        gPane.setGridLinesVisible(true);
-        
         border.setCenter(gPane);
         
-        Scene scene = new Scene(border, Color.LIGHTBLUE);
+        int column;
+        int row;
         
-        primaryStage.setTitle("Calc FX");
+        int largeur= 20; //largeur des rectangles
+        int hauteur = 20; //epaisseur des rectangles
+        
+        for (row=0; row < 20; row++){
+            for (column = 0; column < 8; column++){
+                Rectangle rect = new Rectangle();
+                rect.setWidth(largeur);
+                rect.setHeight(hauteur);
+                rect.setFill(Color.WHITE);
+                GridPane.setRowIndex(rect, row);
+                GridPane.setColumnIndex(rect, column);
+                gPane.getChildren().addAll(rect);
+            }
+        }
+        
+        gPane.setGridLinesVisible(true);
+        border.setCenter(gPane);
+        
+        Scene scene = new Scene(border, Color.WHITE);
+        
+        primaryStage.setTitle("Tetris");
         primaryStage.setScene(scene);
         primaryStage.show();
 }
@@ -99,22 +74,13 @@ public class TetrisMVC extends Application {
         Grille g = new Grille(20,8);
         Coordonnee bas = new Coordonnee(1,16);
         Piece p2 = new Piece(bas);
-        Forme L = New; 
-        p2.donneForme(Forme.L);
+        Forme Leu = Forme.Z;
+        p2.donneForme(Leu);
         g.posepiece(p2);
-        for (int i =0; i<20;i++){
-            p2.rotation();
-            g.posepiece(p2);
-        }
-
-        
-        Coordonnee haut = new Coordonnee(1,0);
-        Piece p3 = new Piece(haut);
-        g.posepiece(p3);
         System.out.println("");
         g.afficheTableau();
-        System.out.println("");
-        //launch(args);
+        System.out.println(""); 
+        launch(args);
     }
     
 }
