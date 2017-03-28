@@ -192,7 +192,8 @@ public class Grille extends Observable {
         /**
      * Fait descendre la piece courante
      */
-        public void chutePieceCourante(){
+        public boolean chutePieceCourante(){
+        boolean test = false;
         Piece copie =piececourante.clone();
         copie.deplace('d');
         retirePiece(piececourante);

@@ -24,25 +24,15 @@ public class Tetris{
     }
     
     public void tour(){
-        Piece p = plateau.getPiececourante();
-        p.deplace(new Coordonnee(0,1));
-        if(!plateau.posepiece(p)){
-            p.deplace(new Coordonnee(0,-1));
-            plateau.posepiece(p);
-            plateau.verifFin();
-        }
-        else{
-            plateau.verifTab();
-            plateau.ajoutPieceCourante(pieces.pollFirst());
-            // Ajout d'une pièce random à pieces A FAIRE
+        plateau.chutePieceCourante();
+        plateau.verifTab();
+        // plateau.ajoutPieceCourante(pieces.pollFirst());
+        plateau.verifFin();
                     
         }
         
     }
     
-    public void nouvellePiece(){
-        plateau.ajoutPieceCourante(pieces.pollFirst());
-        // pieces.add(new Piece());
-    }
+    
     
 }
