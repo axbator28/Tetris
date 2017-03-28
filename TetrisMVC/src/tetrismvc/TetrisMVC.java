@@ -35,15 +35,20 @@ public class TetrisMVC extends Application {
     
     Grille grille;
     Coordonnee coordcliquee;
-    
+    ThreadGraphiquemodele t;
     
     @Override
     public void start(Stage primaryStage) {
-        
         grille = new Grille(23,8);
+        System.out.println("test2");
         Random rand = new Random();
-        grille.ajoutPieceCourante(new Piece(new Coordonnee(4,4), rand));
-        
+        System.out.println("test3");
+        Piece piecededepart = new Piece(new Coordonnee(4,4), rand);
+        System.out.println("test1");
+        Forme Leu = piecededepart.getForme();
+        piecededepart.donneForme(Leu);
+        grille.ajoutPieceCourante(piecededepart);
+        grille.afficheTableau();
         BorderPane border = new BorderPane();
                 
         GridPane gPane = new GridPane();
@@ -59,7 +64,12 @@ public class TetrisMVC extends Application {
                 Rectangle rect = new Rectangle();
                 rect.setWidth(largeur);
                 rect.setHeight(hauteur);
-                rect.setFill(Color.WHITE);
+                if (grille.getTableau()[row+3][column]==1){
+                    rect.setFill(Color.GREEN);
+                }
+                else{
+                    rect.setFill(Color.WHITE);
+                }
                 GridPane.setRowIndex(rect, row);
                 GridPane.setColumnIndex(rect, column);
                 rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -70,18 +80,22 @@ public class TetrisMVC extends Application {
                   });
                 gPane.getChildren().addAll(rect);
             }
+            
+            
         }
         
-        grille.addObserver(new Observer(){
-                        @Override
-            public void update(Observable o, Object arg) {
-                for (int i =22; i>2;i--){
-                    for (int j =0; j<8;j++){
-                        
-                    }
-                }
-            }
-        });
+//        grille.addObserver(new Observer(){
+//                        @Override
+//            public void update(Observable o, Object arg) {
+//                for (int i =22; i>2;i--){
+//                    for (int j =0; j<8;j++){
+//                        if (grille.getTableau()[i][j]==1){
+//                            
+//                    }
+//                }
+//            }
+//        });
+//        }
                 
                 
         gPane.setGridLinesVisible(true);
@@ -109,7 +123,7 @@ public class TetrisMVC extends Application {
         System.out.println("");
         g.afficheTableau();
         System.out.println(""); 
-        //launch(args);
+        launch(args);
     }
     
 }
