@@ -13,13 +13,14 @@ public class Grille {
     private int largeur;
     private int hauteur;
     private int[][] tableau;
-    private Case[][] tabCases; //ajouter les modifications sur cette marice
+    private Carte tabCases; //ajouter les modifications sur cette marice
     private Piece piececourante;
     
     public Grille(int h, int l){
         largeur = l;
         hauteur = h;
         tableau = new int[h][l];
+        tabCases = new Carte(h,l);
     }
     /**
      * Ajoute la piece en piece courante, et 
@@ -37,19 +38,19 @@ public class Grille {
         boolean rep = true;
         int a = 0;
         int b =0;
-        Coordonnee centre = p.getCentre();
-        for (int i = 0; i < p.getCases().length;i++){
-            if (tableau[ centre.getY() + (p.getCases()[i]).getY()][centre.getX() + (p.getCases()[i]).getX()]!=0){
+        Coordonnee centre = p.getPosition();
+        for (int i = 0; i < p.getLien().length;i++){
+            if (tableau[ centre.getY() + (p.getLien()[i]).getY()][centre.getX() + (p.getLien()[i]).getX()]!=0){
                 rep = false;
-                a = centre.getY() + (p.getCases()[i]).getY();
-                b = centre.getX() + (p.getCases()[i]).getX();
+                a = centre.getY() + (p.getLien()[i]).getY();
+                b = centre.getX() + (p.getLien()[i]).getX();
                 System.out.println("Colision en "+a+";"+b);
             }
         }
-        if (tableau[(p.getCentre().getY())][p.getCentre().getX()] !=0){
+        if (tableau[(p.getPosition().getY())][p.getPosition().getX()] !=0){
             rep = false;
-            a = p.getCentre().getY();
-            b = p.getCentre().getX();
+            a = p.getPosition().getY();
+            b = p.getPosition().getX();
             System.out.println("Colision en "+a+";"+b);
         }
         return rep;
@@ -60,11 +61,11 @@ public class Grille {
      * @param t Int
      */
     public void empreintePiece(Piece p , int t){
-        tableau[p.getCentre().getY()][p.getCentre().getX()] = t;
+        tableau[p.getPosition().getY()][p.getPosition().getX()] = t;
         int a, b;
-        for (Coordonnee case1 : p.getCases()) {
-            a = case1.getX() + p.getCentre().getX();
-            b = case1.getY() + p.getCentre().getY();
+        for (Coordonnee case1 : p.getLien()) {
+            a = case1.getX() + p.getPosition().getX();
+            b = case1.getY() + p.getPosition().getY();
             tableau[b][a]=t;
         }
         
@@ -76,6 +77,7 @@ public class Grille {
     public void posepiece(Piece p){
         if (placelibre(p)){
             empreintePiece(p,1);
+            tabCases.setPiece(p);
         }
     }
     /**
@@ -84,6 +86,7 @@ public class Grille {
      */
     public void retirePiece(Piece p){
         empreintePiece(p,0);
+        tabCases.removePiece(p);
     }
     
     /*
@@ -92,6 +95,7 @@ public class Grille {
     */
     public void retireLigne(int ligne){
         if (ligne<=hauteur){
+            tabCases.retireLigne(ligne, largeur);
             for (int i =ligne; i >0; i-- ){
                 for (int j=0; j<largeur; j++){
                     tableau[i][j] = tableau[i-1][j];
@@ -163,9 +167,9 @@ public class Grille {
     }
     
     public boolean testCollision(Piece p){
-        Coordonnee c = p.getCentre();
+        Coordonnee c = p.getPosition();
         boolean test=testCollision(c);
-        Coordonnee[] tab = p.getCases();
+        Coordonnee[] tab = p.getLien();
         for(int i=0;i<tab.length;i++){
             tab[i].add(c);
             test=test && testCollision(tab[i]);
