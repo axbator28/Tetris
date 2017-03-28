@@ -33,8 +33,17 @@ public class Coordonnee {
         return y;
     }
     
-    public void add(Coordonnee c){
+    @Override
+    public Coordonnee clone(){
+        return new Coordonnee(x, y);
+    }
+    
+    public void addmod(Coordonnee c){
         x+=c.getX();
         y+=c.getY();
+    }
+    
+    public Coordonnee add(Coordonnee c){
+        return c.add(this);
     }
 }
