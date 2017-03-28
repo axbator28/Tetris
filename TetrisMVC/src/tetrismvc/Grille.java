@@ -5,7 +5,7 @@
  */
 package tetrismvc;
 
-import java.util.Observable;
+import java.util.*;
 /**
  *
  * @author Axel
@@ -178,7 +178,38 @@ public class Grille extends Observable {
         return hauteur;
     }
     
-        public int getLargeur(){
+    public int getLargeur(){
         return largeur;
+    }
+    
+    public void setPiece( Piece p){
+        piececourante = p;
+    }
+    
+    public Piece getPiece(){
+        return piececourante;
+    }
+    
+    public Case[][] getCases(){
+        return tabCases;
+    }
+    
+    /**
+     * Fait descendre la piece courante
+     */
+    public void chutePieceCourante(){
+        Piece copie =piececourante.copy();
+        copie.deplace('d');
+        retirePiece(piececourante);
+        if (placelibre(copie)){
+            posepiece(copie);
+            piececourante = copie;
+        }
+        else{
+            posepiece(piececourante);
+            Random rand = new Random();
+            Coordonnee base = new Coordonnee(4,4);
+            piececourante = new Piece(base, rand);
+        }
     }
 }
