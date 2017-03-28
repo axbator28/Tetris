@@ -18,8 +18,8 @@ public class Tetris{
    
     
     public Tetris() {
-        plateau=new Grille(10,20);
-        pieces=new LinkedList<Piece>;
+        plateau=new Grille(10,21);
+        pieces=new LinkedList<Piece>();
         // Ajout de trois pièces dans pieces A FAIRE
     }
     
@@ -27,10 +27,12 @@ public class Tetris{
         Piece p = plateau.getPiececourante();
         p.deplace(new Coordonnee(0,1));
         if(!plateau.posepiece(p)){
-            System.out.println("Fin de la partie.");
+            p.deplace(new Coordonnee(0,-1));
+            plateau.posepiece(p);
+            plateau.verifFin();
         }
         else{
-            // VERIF LIGNE PLEINE
+            plateau.verifTab();
             plateau.ajoutPieceCourante(pieces.pollFirst());
             // Ajout d'une pièce random à pieces A FAIRE
                     
@@ -40,7 +42,7 @@ public class Tetris{
     
     public void nouvellePiece(){
         plateau.ajoutPieceCourante(pieces.pollFirst());
-        pieces.add(new Piece());
+        // pieces.add(new Piece());
     }
     
 }

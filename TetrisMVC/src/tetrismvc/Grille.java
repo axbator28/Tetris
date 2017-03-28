@@ -114,6 +114,22 @@ public class Grille {
         }
     }
     
+    public boolean verifLigne(int l){
+        boolean test = true;
+        for(int i =0; i<largeur; i++){
+            test=test && tableau[l][i]==1;
+        }
+        return test;
+    }
+    
+    public void verifTab(){
+        for(int i=0; i<hauteur; i++){
+            if(verifLigne(i)){
+                retireLigne(i);
+            }
+        }
+    }
+    
     public void afficheTableau(){
         for (int i = 0; i<hauteur;i++){
             for (int j = 0; j<largeur;j++){
@@ -126,25 +142,7 @@ public class Grille {
      *  Si la ligne est complète, il faudra l'effacer
      * @param i ligne à tester
      * @return true si la ligne est pleine, sinon false
-     */
-    public boolean testLigne(int i){
-        int j=0;
-        while(j<largeur && tableau[i][j]==1){
-            j++;
-        }
-        return j==largeur-1;
-        }
-    
-    /** Actualise le tetris tel que les lignes pleines soient effacées
-     * 
-     */
-    public void actuTetris(){
-        for(int i=0;i<hauteur;i++){
-            if(testLigne(i)){
-                retireLigne(i);
-            }
-        }
-    }
+     */    
     
     /** Test d'un déplacement pour le rushour
      * On ne peut déplacer une pièce que dans sa longueur et si elle ne se supperpose pas après à une autre
@@ -182,5 +180,16 @@ public class Grille {
             test=test && testCollision(tab[i]);
         }
         return test;
+    }
+
+    public void verifFin() {
+        boolean test = false;
+        for(int i=0; i<largeur;i++){
+           if (tableau[0][i]==1)
+           {test = true;}
+        }
+        if(test){
+            System.out.println("Partie finie.");
+        }
     }
 }

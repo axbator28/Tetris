@@ -84,6 +84,26 @@ public class Carte {
             p = list.pollFirst();
         }
     }
- 
+    
+    
+    public void baisseLigne(int l, int largeur){
+        LinkedList<Piece> list = new LinkedList<Piece>();
+        for (int i =0; i < i; i++){
+            for(int j = 0; j<largeur; j++){
+                Coordonnee c = new Coordonnee(i,j);
+                Case p = map.get(c);
+                if(p instanceof Piece){
+                    if(!list.contains(p)){
+                        list.add((Piece)p);
+                    }
+                }     
+            }
+        }
+        Piece p=list.pollFirst();
+        Coordonnee c = new Coordonnee(0,1);
+        while(p!= null){
+            p.deplace(c);
+        }
+    }
 
 }   
