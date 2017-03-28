@@ -6,7 +6,7 @@
 package tetrismvc;
 
 public class Carte {
-    HashMap<Coordonnee, Case> map;
+    /*HashMap<Coordonnee, Case> map;
 
 
     public Case getCase(Coordonnee k){
@@ -28,5 +28,5 @@ public class Carte {
         else{
             System.out.println("Erreur : la case n'existe pas");
         }
-    }
+    }*/
 }
