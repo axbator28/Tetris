@@ -1,9 +1,13 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package tetrismvc;
+
+import java.awt.Color;
+import java.util.Random;
 
 /**
  *
@@ -20,16 +24,9 @@ public class Piece extends Case{
     
     private Forme forme;
 //contient les coordonnées des cases de la pièce relativement 
-    //au centre de gravité, avec le centre de gravité en 0,0 donc
-    
-    public Piece(Coordonnee coord){
-        super(coord);
-        super.setLien(new Coordonnee[3]);
-
-    }
-    
-    public void donneForme(Forme F){
-        int [][][] listeFormes = {
+  //au centre de gravité, avec le centre de gravité en 0,0 donc
+   
+    static int [][][] listeFormes = {
             {{-1,1}, {1,0}, {0,1}},
             {{-1,0}, {1,0}, {1,1}},
             {{0,-1}, {0,1}, {0,2}},
@@ -37,6 +34,15 @@ public class Piece extends Case{
             {{0,1}, {1,0}, {1,1}},
             {{1,0}, {2,0}, {1,0}},
             {{-1,0}, {1,0}, {2,0}}};
+    
+    
+    
+    public Piece(Coordonnee coord){
+        super(coord);
+        super.setLien(new Coordonnee[3]);
+    }
+    
+    public void donneForme(Forme F){
         Coordonnee[] t = getLien();
         for (int i = 0; i < 3 ; i++) {
             
@@ -47,13 +53,25 @@ public class Piece extends Case{
         setLien(t);
     }
     
-    public Piece(Coordonnee coord, String couleur, Coordonnee[] cases){
+    public Piece(Coordonnee coord, Color couleur, Coordonnee[] cases){
         super(coord, couleur, cases);
+    }
+    
+    
+        public Piece(Coordonnee coord, Random random){
+            super(coord, Color.BLUE);
+            forme = Forme.values()[random.nextInt(7)];
+            Coordonnee[] cases = new Coordonnee[3];
+            for(int i=0; i<3;i++){
+                cases[i]=new Coordonnee(listeFormes[forme.ordinal()][i][0], -listeFormes[forme.ordinal()][i][1]);
+            }
+            setLien(cases);
+        
     }
     
     @Override
     public Piece clone(){
-        return new Piece(getPosition(), /*getCouleur()*/ "MODIF", getLien());
+        return new Piece(getPosition(), getCouleur(), getLien());
     }
 
     public void rotation(){
@@ -94,8 +112,10 @@ public class Piece extends Case{
         }
     }
     
-    
-    
+        public void deplacebas(){
+        deplace('d');
+    }
+   
     public void deplacedroite(){
         deplace('r');
     }

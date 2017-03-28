@@ -19,9 +19,14 @@ public class Case {
         position = c;
     }
     
-    public Case(Coordonnee coord, String couleur, Coordonnee[] cases){
+    public Case(Coordonnee coord, Color couleur){
         position=coord;
-        //this.couleur = couleur;
+        this.couleur=couleur;
+    }
+    
+    public Case(Coordonnee coord, Color couleur, Coordonnee[] cases){
+        position=coord;
+        this.couleur = couleur;
         lien=cases;
     }
     

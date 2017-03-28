@@ -5,11 +5,13 @@
  */
 package tetrismvc;
 
+import java.util.*;
 /**
  *
  * @author Axel
  */
-public class Grille {
+public class Grille extends Observable {
+
     private int largeur;
     private int hauteur;
     private int[][] tableau;
@@ -138,11 +140,6 @@ public class Grille {
             System.out.println("");
         }
     }
-    /** Test de ligne pleine
-     *  Si la ligne est complète, il faudra l'effacer
-     * @param i ligne à tester
-     * @return true si la ligne est pleine, sinon false
-     */    
     
     /** Test d'un déplacement pour le rushour
      * On ne peut déplacer une pièce que dans sa longueur et si elle ne se supperpose pas après à une autre
@@ -190,6 +187,24 @@ public class Grille {
         }
         if(test){
             System.out.println("Partie finie.");
+        }
+    }
+        /**
+     * Fait descendre la piece courante
+     */
+        public void chutePieceCourante(){
+        Piece copie =piececourante.clone();
+        copie.deplace('d');
+        retirePiece(piececourante);
+        if (placelibre(copie)){
+            posepiece(copie);
+            piececourante = copie;
+        }
+        else{
+            posepiece(piececourante);
+            Random rand = new Random();
+            Coordonnee base = new Coordonnee(4,4);
+            piececourante = new Piece(base, rand);
         }
     }
 }

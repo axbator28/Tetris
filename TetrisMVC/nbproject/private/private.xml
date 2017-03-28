@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/Grille.java</file>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/Case.java</file>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/TetrisMVC.java</file>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/Piece.java</file>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/Modele.java</file>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/Carte.java</file>
+            <file>file:/C:/Users/Axel/Desktop/Polytech/Tetris/TetrisMVC/src/tetrismvc/Forme.java</file>
+        </group>
+=======
         <group/>
+>>>>>>> 7076e6c1169865ca605de10c6d6ebbcf33de450f
     </open-files>
 </project-private>

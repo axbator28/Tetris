@@ -83,6 +83,7 @@ public class Carte {
             removePiece(p);
             p = list.pollFirst();
         }
+        baisseLigne(l, largeur);
     }
     
     
