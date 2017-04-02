@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 public class VueGrille {
     Grille grille;
     Coordonnee coordcliquee;
+    Rectangle[][] grillerect;
     
     public void draw(Stage primaryStage) {
         

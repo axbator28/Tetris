@@ -73,6 +73,7 @@ public class Grille extends Observable implements Runnable {
      */
     public void empreintePiece(Piece p , int t){
         tableau[p.getPosition().getY()][p.getPosition().getX()] = t;
+        System.out.println("test empreinte");
         int a, b;
         for (Coordonnee case1 : p.getLien()) {
             a = case1.getX() + p.getPosition().getX();
@@ -229,17 +230,18 @@ public class Grille extends Observable implements Runnable {
      * Fait descendre la piece courante
      */
     public void chutePieceCourante(){
-        System.out.println("Avant clone");
-        Piece copie =piececourante.clone();
-        System.out.println("Avant chute");
-        copie.deplace('d');
-        System.out.println("après deplace");
+//        System.out.println("Avant clone");
+//        Piece copie =piececourante.clone();
         retirePiece(piececourante);
-        if (placelibre(copie)){
-            posepiece(copie);
-            piececourante = copie;
+        System.out.println("Avant chute");
+        piececourante.deplace('d');
+        System.out.println("après deplace");
+//        retirePiece(piececourante);
+        if (placelibre(piececourante)){
+            posepiece(piececourante);
         }
         else{
+            piececourante.deplace('u');
             posepiece(piececourante);
             Random rand = new Random();
             Coordonnee base = new Coordonnee(4,4);
@@ -250,7 +252,7 @@ public class Grille extends Observable implements Runnable {
     @Override
     public void run() {
         while (true) {
-        //piececourante.deplacebas();
+        chutePieceCourante();
         setChanged();
         notifyObservers();
         try {

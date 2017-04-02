@@ -36,6 +36,7 @@ public class TetrisMVC extends Application {
     Grille grille;
     Coordonnee coordcliquee;
     ThreadGraphiquemodele t;
+    Rectangle[][] grillerect;
     
     @Override
     public void start(Stage primaryStage) {
@@ -50,6 +51,8 @@ public class TetrisMVC extends Application {
         grille.ajoutPieceCourante(piecededepart);
         grille.afficheTableau();
         BorderPane border = new BorderPane();
+        
+        grillerect = new Rectangle[20][8];
                 
         GridPane gPane = new GridPane();
         border.setCenter(gPane);
@@ -80,6 +83,8 @@ public class TetrisMVC extends Application {
                     }
                   });
                 gPane.getChildren().addAll(rect);
+                
+                grillerect[row][column] = rect;
             }
             
             
@@ -89,8 +94,19 @@ public class TetrisMVC extends Application {
             @Override
             public void update(Observable o, Object arg) {
                 System.out.print("hello");   
-                r3.setFill(Color.CYAN);
+                //r3.setFill(Color.CYAN);
+                for (int i=0; i < 20; i++){
+                    for (int j = 0; j < 8; j++){
+                if (grille.getTableau()[i+3][j]==1){
+                    grillerect[i][j].setFill(Color.GREEN);
+                }
+                else{
+                    grillerect[i][j].setFill(Color.WHITE);
+                }
                 
+                
+                }
+            }
             }
         });
         
@@ -125,18 +141,18 @@ public class TetrisMVC extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grille g = new Grille(20,8);
-        Coordonnee bas = new Coordonnee(1,16);
-        Random ran = new Random();
-        Piece p2 = new Piece(bas, ran);
-        Forme Leu = p2.getForme();
-        p2.donneForme(Leu);
-        g.posepiece(p2);
-        System.out.println("");
-        g.afficheTableau();
-        System.out.println(""); 
-        g.chutePieceCourante();
-        //launch(args);
+//        Grille g = new Grille(20,8);
+//        Coordonnee bas = new Coordonnee(1,16);
+//        Random ran = new Random();
+//        Piece p2 = new Piece(bas, ran);
+//        Forme Leu = p2.getForme();
+//        p2.donneForme(Leu);
+//        g.posepiece(p2);
+//        System.out.println("");
+//        g.afficheTableau();
+//        System.out.println("");
+//        g.chutePieceCourante();
+        launch(args);
     }
     
 }

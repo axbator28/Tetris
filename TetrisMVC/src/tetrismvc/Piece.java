@@ -64,9 +64,7 @@ public class Piece extends Case{
     
     @Override
     public Piece clone(){
-        Piece copie = new Piece(getPosition(), getCouleur(), getLien());
-        copie.setForme(getForme());
-        return copie;
+        return new Piece(getPosition(), getCouleur(), getLien());
     }
 
     public void rotation(){
