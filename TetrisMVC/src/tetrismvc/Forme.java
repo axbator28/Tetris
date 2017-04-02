@@ -5,7 +5,7 @@
  */
 package tetrismvc;
     
-import javafx.scene.paint.Color;
+
 /**
  *
  * @author Axel

@@ -58,10 +58,11 @@ public class TetrisMVC extends Application {
         
         int largeur= 30; //largeur des rectangles
         int hauteur = 30; //epaisseur des rectangles
-        
+        Rectangle r2 = null;
         for (row=0; row < 20; row++){
             for (column = 0; column < 8; column++){
                 Rectangle rect = new Rectangle();
+                r2 = rect;
                 rect.setWidth(largeur);
                 rect.setHeight(hauteur);
                 if (grille.getTableau()[row+3][column]==1){
@@ -83,6 +84,17 @@ public class TetrisMVC extends Application {
             
             
         }
+        final Rectangle r3 = r2;
+        grille.addObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                System.out.print("hello");   
+                r3.setFill(Color.CYAN);
+                
+            }
+        });
+        
+        new Thread(grille).start();
         
 //        grille.addObserver(new Observer(){
 //                        @Override
@@ -123,7 +135,8 @@ public class TetrisMVC extends Application {
         System.out.println("");
         g.afficheTableau();
         System.out.println(""); 
-        launch(args);
+        g.chutePieceCourante();
+        //launch(args);
     }
     
 }

@@ -44,6 +44,7 @@ public class Coordonnee {
     }
     
     public Coordonnee add(Coordonnee c){
-        return c.add(this);
+        c.addmod(this);
+        return c;
     }
 }

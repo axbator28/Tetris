@@ -1,3 +1,4 @@
+//
 ///*
 // * To change this license header, choose License Headers in Project Properties.
 // * To change this template file, choose Tools | Templates
@@ -18,29 +19,22 @@
 //   
 //    
 //    public Tetris() {
-//        plateau=new Grille(10,20);
-//        pieces=new LinkedList<Piece>;
+//        plateau=new Grille(10,21);
+//        pieces=new LinkedList<Piece>();
 //        // Ajout de trois pièces dans pieces A FAIRE
 //    }
 //    
 //    public void tour(){
-//        Piece p = plateau.getPiececourante();
-//        p.deplace(new Coordonnee(0,1));
-//        if(!plateau.posepiece(p)){
-//            System.out.println("Fin de la partie.");
-//        }
-//        else{
-//            // VERIF LIGNE PLEINE
-//            plateau.ajoutPieceCourante(pieces.pollFirst());
-//            // Ajout d'une pièce random à pieces A FAIRE
+//        plateau.chutePieceCourante();
+//        plateau.verifTab();
+//        // plateau.ajoutPieceCourante(pieces.pollFirst());
+//        plateau.verifFin();
 //                    
 //        }
 //        
 //    }
 //    
-//    public void nouvellePiece(){
-//        plateau.ajoutPieceCourante(pieces.pollFirst());
-//        pieces.add(new Piece());
-//    }
+//    
 //    
 //}
+

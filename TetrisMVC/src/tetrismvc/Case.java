@@ -17,11 +17,17 @@ public class Case {
 
     Case(Coordonnee c) {
         position = c;
+        couleur = Color.GREEN;
     }
     
-    public Case(Coordonnee coord, String couleur, Coordonnee[] cases){
+    public Case(Coordonnee coord, Color couleur){
         position=coord;
-        //this.couleur = couleur;
+        this.couleur=couleur;
+    }
+    
+    public Case(Coordonnee coord, Color couleur, Coordonnee[] cases){
+        position=coord;
+        this.couleur = couleur;
         lien=cases;
     }
     
