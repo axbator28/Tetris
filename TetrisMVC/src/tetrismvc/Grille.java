@@ -225,6 +225,32 @@ public class Grille extends Observable implements Runnable {
             System.out.println("Partie finie.");
         }
     }
+        
+    /**
+     * Vérifie si la case d'en dessous de la piece est vide ou que l'on est pas en fin de tableau
+     * @param p piece chekee
+     */
+        
+    public boolean verifsous(Piece p){
+        if (p.getPosition().getY()>=hauteur-1){
+            return false;
+        }
+        for (int i = 0; i<3;i++){
+            if (p.getPosition().getY() + p.getLien()[i].getY()>=hauteur-1){
+                return false;
+            }
+        }
+        if (tableau[p.getPosition().getY()+1][p.getPosition().getX()]!=0){
+            return false;
+        }
+        for (int i = 0; i<3;i++){
+            if (tableau[p.getPosition().getY() + p.getLien()[i].getY()+1][p.getPosition().getX()+ p.getLien()[i].getX()]!=0){
+                return false;
+            }
+        }
+        return true;
+            
+    }
     
     /**
      * Fait descendre la piece courante
@@ -237,11 +263,12 @@ public class Grille extends Observable implements Runnable {
         piececourante.deplace('d');
         System.out.println("après deplace");
 //        retirePiece(piececourante);
-        if (placelibre(piececourante)){
+        if (verifsous(piececourante)){
+            if(placelibre(piececourante)){
             posepiece(piececourante);
+            }
         }
         else{
-            piececourante.deplace('u');
             posepiece(piececourante);
             Random rand = new Random();
             Coordonnee base = new Coordonnee(4,4);
@@ -256,7 +283,7 @@ public class Grille extends Observable implements Runnable {
         setChanged();
         notifyObservers();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(400);
         } catch (InterruptedException ex) {
             Logger.getLogger(Grille.class.getName()).log(Level.SEVERE, null, ex);
         }
