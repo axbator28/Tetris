@@ -113,7 +113,7 @@ public class Piece extends Case{
         deplace('r');
     }
     public void deplacegauche(){
-        deplace('g');
+        deplace('l');
     }
     
     public Forme getForme(){

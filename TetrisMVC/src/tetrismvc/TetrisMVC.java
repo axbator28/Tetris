@@ -6,6 +6,7 @@
  */
 package tetrismvc;
 
+import tetrismvc.Controlleur.*;
 import java.util.Observable;
 import javafx.scene.shape.Rectangle;
 import javafx.application.Application;
@@ -26,20 +27,33 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 import java.util.Random;
+import javafx.scene.*;
+import javafx.scene.input.*;
+
 
 /**
  *
  * @author Axel
  */
-public class TetrisMVC extends Application {
+public class TetrisMVC extends Application  {
     
-    Grille grille;
-    Coordonnee coordcliquee;
-    ThreadGraphiquemodele t;
-    Rectangle[][] grillerect;
+    private Grille grille;
+    private Coordonnee coordcliquee;
+    private Rectangle[][] grillerect;
+    private Controller control;
     
+    
+    
+    public Grille GetGrille(){
+        return grille;
+    }
+    
+    public Rectangle[][] GetGrilleRect(){
+        return grillerect;
+    }
     @Override
     public void start(Stage primaryStage) {
+
         grille = new Grille(23,8);
         System.out.println("test2");
         Random rand = new Random();
@@ -89,7 +103,7 @@ public class TetrisMVC extends Application {
             
             
         }
-        final Rectangle r3 = r2;
+        
         grille.addObserver(new Observer() {
             @Override
             public void update(Observable o, Object arg) {
@@ -111,6 +125,7 @@ public class TetrisMVC extends Application {
         });
         
         new Thread(grille).start();
+
         
 //        grille.addObserver(new Observer(){
 //                        @Override
@@ -130,10 +145,25 @@ public class TetrisMVC extends Application {
         border.setCenter(gPane);
         
         Scene scene = new Scene(border, Color.WHITE);
-        
+        MovePiece(scene);
         primaryStage.setTitle("Tetris");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+}
+
+    
+    private void MovePiece(Scene scene) {
+    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override public void handle(KeyEvent event) {
+        switch (event.getCode()) {
+          case UP:    grille.getPiece().rotation(); break;
+          case RIGHT: grille.getPiece().deplacedroite(); break;
+          case DOWN:  break;
+          case LEFT:  grille.getPiece().deplacegauche(); break;
+        }
+      }
+    });
 }
     
 
