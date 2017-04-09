@@ -83,12 +83,20 @@ public class Grille extends Observable implements Runnable {
         
     }
     /**
-     * Pose la piece p dans la grille, avec des 1
+     * Pose la piece p dans la grille, avec la valeur correspondante
      * @param p 
      */
     public void posepiece(Piece p){
         if (placelibre(p)){
-            empreintePiece(p,1);
+            switch(p.getForme()){
+                case  Z: empreintePiece(p,1); break;
+                case  S: empreintePiece(p,2); break;
+                case  ligne: empreintePiece(p,3); break;
+                case  t: empreintePiece(p,4); break;
+                case  carre: empreintePiece(p,5); break;
+                case  L: empreintePiece(p,6); break;
+                case  Linverse: empreintePiece(p,7); break;
+            }
         }
     }
     /**
@@ -104,6 +112,7 @@ public class Grille extends Observable implements Runnable {
     *toutes les cases de 1.
     */
     public void retireLigne(int ligne){
+        afficheTableau();
         if (ligne<=hauteur){
             for (int i =ligne; i >0; i-- ){
                 for (int j=0; j<largeur; j++){
@@ -131,10 +140,12 @@ public class Grille extends Observable implements Runnable {
      */
     public boolean testLigne(int i){
         int j=0;
-        while(j<largeur && tableau[i][j]==1){
-            j++;
+        for (j =0; j< largeur; j++){
+            if (tableau[i][j]==0){
+                return false;
+            }
         }
-        return j==largeur-1;
+        return true;
         }
     
     /** Actualise le tetris tel que les lignes pleines soient effacées
@@ -252,6 +263,64 @@ public class Grille extends Observable implements Runnable {
             
     }
     
+    public boolean placerotation(){
+        Piece copie = getPiece().clone();
+        retirePiece(getPiece());
+        copie.rotation();
+        for (int i = 0; i<3; i++){
+            if (copie.getLien()[i].getX() + copie.getPosition().getX() <0 || 
+                    copie.getLien()[i].getX() + copie.getPosition().getX()>largeur-1 
+            || copie.getLien()[i].getY() + copie.getPosition().getY() > hauteur-1){
+                copie.rotation();
+                copie.rotation();
+                copie.rotation();
+                posepiece(getPiece());
+                return false;
+            }
+            if (tableau[copie.getPosition().getY() + copie.getLien()[i].getY()]
+                    [copie.getLien()[i].getX() + copie.getPosition().getX()]!=0){
+                copie.rotation();
+                copie.rotation();
+                copie.rotation();
+                posepiece(getPiece());
+                return false;
+            }            
+        }
+        copie.rotation();
+        copie.rotation();
+        copie.rotation();
+        posepiece(getPiece());
+        return true;
+    }
+    
+    public boolean placedeplacement(char a){
+        Piece copie = getPiece().clone();
+        retirePiece(getPiece());
+        copie.deplace(a);
+        for (int i = 0; i<3; i++){
+            if (copie.getLien()[i].getX() + copie.getPosition().getX() <0 || 
+                    copie.getLien()[i].getX() + copie.getPosition().getX()>largeur-1 
+            || copie.getLien()[i].getY() + copie.getPosition().getY() > hauteur-1){
+                posepiece(getPiece());
+                return false;
+            }
+            if (tableau[copie.getPosition().getY() + copie.getLien()[i].getY()]
+                    [copie.getLien()[i].getX() + copie.getPosition().getX()]!=0){
+                posepiece(getPiece());
+                return false;
+            }            
+        }
+        posepiece(getPiece());
+        return true;
+    }
+    
+    public boolean placedroite(){
+       return placedeplacement('r');
+    }
+    
+    public boolean placegauche(){
+       return placedeplacement('l');
+    }
     /**
      * Fait descendre la piece courante
      */
@@ -259,9 +328,8 @@ public class Grille extends Observable implements Runnable {
 //        System.out.println("Avant clone");
 //        Piece copie =piececourante.clone();
         retirePiece(piececourante);
-        System.out.println("Avant chute");
         piececourante.deplace('d');
-        System.out.println("après deplace");
+        afficheTableau();
 //        retirePiece(piececourante);
         if (verifsous(piececourante)){
             if(placelibre(piececourante)){
@@ -271,8 +339,13 @@ public class Grille extends Observable implements Runnable {
         else{
             posepiece(piececourante);
             Random rand = new Random();
-            Coordonnee base = new Coordonnee(4,4);
+            Coordonnee base = new Coordonnee(4,2);
             piececourante = new Piece(base, rand);
+            for (int i = 0; i<hauteur; i++){
+                if (testLigne(i)){
+                    retireLigne(i);
+                }
+            }
         }
     }
 
@@ -283,7 +356,7 @@ public class Grille extends Observable implements Runnable {
         setChanged();
         notifyObservers();
         try {
-            Thread.sleep(400);
+            Thread.sleep(300); //400 opti
         } catch (InterruptedException ex) {
             Logger.getLogger(Grille.class.getName()).log(Level.SEVERE, null, ex);
         }

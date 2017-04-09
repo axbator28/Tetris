@@ -31,7 +31,7 @@ public class Controller implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Grille grille = tetris.GetGrille();
+        Grille grille = tetris.getGrille();
         int keyCode = e.getKeyCode();
         switch( keyCode ) { 
             case KeyEvent.VK_UP:

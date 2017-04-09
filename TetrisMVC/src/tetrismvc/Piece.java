@@ -122,4 +122,13 @@ public class Piece extends Case{
     public void setForme(Forme form){
         forme = form;
     }
+    
+    public void printCoord(){
+        System.out.print("Mon centre est " );
+        getPosition().printcoord();
+        for (int i =0; i<3; i++){
+            getLien()[i].printcoord();
+        }
+        
+    }
 }

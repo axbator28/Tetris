@@ -47,4 +47,8 @@ public class Coordonnee {
         c.addmod(this);
         return c;
     }
+    
+    public void printcoord(){
+        System.out.println("Je suis en x = " + x +" et y = "+ y);
+    }
 }

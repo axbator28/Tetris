@@ -44,7 +44,7 @@ public class TetrisMVC extends Application  {
     
     
     
-    public Grille GetGrille(){
+    public Grille getGrille(){
         return grille;
     }
     
@@ -55,11 +55,8 @@ public class TetrisMVC extends Application  {
     public void start(Stage primaryStage) {
 
         grille = new Grille(23,8);
-        System.out.println("test2");
         Random rand = new Random();
-        System.out.println("test3");
-        Piece piecededepart = new Piece(new Coordonnee(4,4), rand);
-        System.out.println("test1");
+        Piece piecededepart = new Piece(new Coordonnee(2,2), rand);
         Forme Leu = piecededepart.getForme();
         piecededepart.donneForme(Leu);
         grille.ajoutPieceCourante(piecededepart);
@@ -111,12 +108,30 @@ public class TetrisMVC extends Application  {
                 //r3.setFill(Color.CYAN);
                 for (int i=0; i < 20; i++){
                     for (int j = 0; j < 8; j++){
-                if (grille.getTableau()[i+3][j]==1){
-                    grillerect[i][j].setFill(Color.GREEN);
-                }
-                else{
-                    grillerect[i][j].setFill(Color.WHITE);
-                }
+                        if (grille.getTableau()[i+3][j]==1){
+                            grillerect[i][j].setFill(Color.GREEN);
+                        }
+                        if (grille.getTableau()[i+3][j]==2){
+                            grillerect[i][j].setFill(Color.RED);
+                        }
+                        if (grille.getTableau()[i+3][j]==3){
+                            grillerect[i][j].setFill(Color.CYAN);
+                        }
+                        if (grille.getTableau()[i+3][j]==4){
+                            grillerect[i][j].setFill(Color.PURPLE);
+                        }
+                        if (grille.getTableau()[i+3][j]==5){
+                           grillerect[i][j].setFill(Color.YELLOW);
+                        }
+                        if (grille.getTableau()[i+3][j]==6){
+                            grillerect[i][j].setFill(Color.BLUE);
+                        }
+                        if (grille.getTableau()[i+3][j]==7){
+                            grillerect[i][j].setFill(Color.ORANGE);
+                        }
+                        if (grille.getTableau()[i+3][j]==0){
+                            grillerect[i][j].setFill(Color.WHITE);
+                        }
                 
                 
                 }
@@ -156,11 +171,35 @@ public class TetrisMVC extends Application  {
     private void MovePiece(Scene scene) {
     scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override public void handle(KeyEvent event) {
+          boolean bas = true;
         switch (event.getCode()) {
-          case UP:    grille.getPiece().rotation(); break;
-          case RIGHT: grille.getPiece().deplacedroite(); break;
-          case DOWN:  break;
-          case LEFT:  grille.getPiece().deplacegauche(); break;
+          case UP:    
+                    if (grille.placerotation()){
+                        grille.retirePiece(grille.getPiece());
+                        grille.getPiece().rotation();
+                        grille.posepiece(grille.getPiece());
+                    }
+                    break;
+          
+          
+          case RIGHT: 
+              if (grille.placedroite()){
+              grille.retirePiece(grille.getPiece());
+              grille.getPiece().deplacedroite();
+              grille.posepiece(grille.getPiece());
+              }
+              break;
+          
+          case DOWN: break;
+          
+          
+          case LEFT:  
+              if (grille.placegauche()){
+              grille.retirePiece(grille.getPiece());
+              grille.getPiece().deplacegauche();
+              grille.posepiece(grille.getPiece());
+              }
+              break;
         }
       }
     });
